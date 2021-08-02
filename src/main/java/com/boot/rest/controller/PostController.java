@@ -11,40 +11,40 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.boot.rest.service.PostService;
 import com.boot.rest.service.UserService;
+import com.boot.rest.user.Post;
 import com.boot.rest.user.User;
 
-
-
-
 @RestController
-public class UserController {
+public class PostController {
 	
 	@Autowired
-	private UserService service;
+	private PostService service;
 	
-	@GetMapping("/profile/users")
-	public List<User> getAllUsers()
+	@GetMapping("/users/{id}/posts")
+	public List<Post> getAllPosts(long userId)
 	{
-		return service.getAllUsers();
+		return service.getAllPosts(userId);
 	}
 	
-	@GetMapping("/profile/users/{id}")
-	public Optional<User> getUser(@PathVariable long id)
+	@GetMapping("/users/{id}/posts/{postid}")
+	public Optional<Post> getUser(@PathVariable long postid)
 	{
-		return service.getUser(id);
+		return service.getPost(postid);
 	}
 	
-	@PostMapping("/profile/users")
-	public void addUser(@RequestBody User user)
+	@PostMapping("/users/{id}/posts")
+	public void addPosts(@RequestBody Post post)
 	{
-		service.addUser(user);
+		service.addPost(post);
 	}
 	
-	@DeleteMapping("/profile/users/{id}")
-	public void deleteUser(@PathVariable long id)
+	@DeleteMapping("/users/{id}/posts/{postid}")
+	public void deleteUser(@PathVariable long postid)
 	{
-		 service.deleteUser(id);
+		 service.deletePost(postid);
 	}
+
 
 }

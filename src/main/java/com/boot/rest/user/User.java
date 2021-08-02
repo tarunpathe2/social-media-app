@@ -1,9 +1,11 @@
 package com.boot.rest.user;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class User {
@@ -15,12 +17,14 @@ public class User {
 	private Date DOB;
 	private String address;
 	
-	
+	@OneToMany(mappedBy = "user")
+	private List<Post> posts;
 	
 	
 	public long getId() {
 		return id;
 	}
+	
 	public void setId(long id) {
 		this.id = id;
 	}
@@ -50,6 +54,17 @@ public class User {
 	}
 	
 	
+	
+	
+	
+	public List<Post> getPosts() {
+		return posts;
+	}
+
+	public void setPosts(List<Post> posts) {
+		this.posts = posts;
+	}
+
 	public User(long id, String email, String name, Date dOB, String address) {
 		super();
 		this.id = id;
@@ -57,9 +72,15 @@ public class User {
 		this.name = name;
 		DOB = dOB;
 		this.address = address;
+		
 	}
 	protected User() {
 		super();
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", email=" + email + ", name=" + name + ", DOB=" + DOB + ", address=" + address + "]";
 	}
 	
 	
